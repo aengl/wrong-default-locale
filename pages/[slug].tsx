@@ -19,13 +19,20 @@ export const getStaticProps: GetStaticProps<{ slug: string }> = async (
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const slugs = [...new Array(1000)].map(() =>
+  const slugs = [...new Array(10000)].map(() =>
     Math.random().toString(36).substr(2, 7)
   );
   return {
-    paths: slugs.map((x) => ({
-      params: { slug: x },
-    })),
+    paths: [
+      ...slugs.map((x) => ({
+        locale: "de",
+        params: { slug: x },
+      })),
+      ...slugs.map((x) => ({
+        locale: "en",
+        params: { slug: x },
+      })),
+    ],
     fallback: false,
   };
 };
